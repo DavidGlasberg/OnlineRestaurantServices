@@ -1,4 +1,4 @@
-// src/AdminPage.js
+
 // src/components/AdminPage.js
 
 import React, { useState, useEffect } from 'react';

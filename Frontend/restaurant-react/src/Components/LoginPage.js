@@ -1,12 +1,11 @@
-// src/components/LoginPage.js
-// src/components/LoginPage.js
+// src/Components/LoginPage.js
 
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
-const LoginPage = () => {
+const LoginPage = ({ setIsAdminLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -17,6 +16,7 @@ const LoginPage = () => {
             const response = await axios.post('http://localhost:5000/login', { username, password });
             const adminToken = response.data.token;
             localStorage.setItem('adminToken', adminToken);
+            setIsAdminLoggedIn(true); // Update isAdminLoggedIn state
             navigate('/admin');
         } catch (error) {
             console.error('Login failed', error);
