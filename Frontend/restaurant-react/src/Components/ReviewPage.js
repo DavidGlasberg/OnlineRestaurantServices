@@ -1,13 +1,16 @@
+
 // src/components/ReviewPage.js
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactStars from 'react-rating-stars-component';
 import './ReviewPage.css';
 
 const ReviewPage = () => {
     const [reviews, setReviews] = useState([]);
     const [name, setName] = useState('');
     const [feedback, setFeedback] = useState('');
+    const [rating, setRating] = useState(0);
 
     useEffect(() => {
         fetchReviews();
@@ -20,11 +23,16 @@ const ReviewPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newReview = { name, feedback };
+        const newReview = { name, feedback, rating };
         await axios.post('http://localhost:5000/reviews', newReview);
         setName('');
         setFeedback('');
+        setRating(5);
         fetchReviews();
+    };
+
+    const ratingChanged = (newRating) => {
+        setRating(newRating);
     };
 
     return (
@@ -50,6 +58,16 @@ const ReviewPage = () => {
                         required
                     ></textarea>
                 </div>
+                <div>
+                    <label htmlFor="rating">Rating:</label>
+                    <ReactStars
+                        count={5}
+                        onChange={ratingChanged}
+                        size={24}
+                        activeColor="#ffd700"
+                        value={rating}
+                    />
+                </div>
                 <button type="submit">Submit Review</button>
             </form>
             <div className="reviews">
@@ -57,6 +75,15 @@ const ReviewPage = () => {
                     <div key={index} className="review">
                         <h3>{review.name}</h3>
                         <p>{review.feedback}</p>
+                        <div className='stars'>
+                            <ReactStars 
+                            count={5}
+                            size={24}
+                            activeColor="#ffd700"
+                            value={review.rating}
+                            edit={false}
+                        /></div>
+
                         <small>{review.date}</small>
                     </div>
                 ))}

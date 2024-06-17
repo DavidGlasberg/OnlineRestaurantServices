@@ -26,12 +26,20 @@ mongoose.connect(`${process.env.MONGODB_URL}`, {
     useUnifiedTopology: true,
 });
 
+// const reviewSchema = new mongoose.Schema({
+//     name: String,
+//     feedback: String,
+//     date: String,
+//     approved: { type: Boolean, default: false },
+// });
 const reviewSchema = new mongoose.Schema({
     name: String,
     feedback: String,
     date: String,
+    rating: { type: Number, required: true },
     approved: { type: Boolean, default: false },
 });
+
 
 const Review = mongoose.model('Review', reviewSchema);
 
@@ -48,12 +56,19 @@ app.post('/login', async (req, res) => {
     console.log("Admin connected!");
 });
 
+// app.post('/reviews', async (req, res) => {
+//     const { name, feedback } = req.body;
+//     const newReview = new Review({ name, feedback, date: new Date().toLocaleString() });
+//     await newReview.save();
+//     res.status(201).send(newReview);
+// });
 app.post('/reviews', async (req, res) => {
-    const { name, feedback } = req.body;
-    const newReview = new Review({ name, feedback, date: new Date().toLocaleString() });
+    const { name, feedback, rating } = req.body;
+    const newReview = new Review({ name, feedback, rating, date: new Date().toLocaleString() });
     await newReview.save();
     res.status(201).send(newReview);
 });
+
 
 app.get('/reviews', async (req, res) => {
     const reviews = await Review.find({ approved: true });
@@ -67,6 +82,15 @@ app.get('/reviews/unapproved', authMiddleware, async (req, res) => {
         res.send(reviews);
     } catch (error) {
         res.status(500).send({ message: 'Failed to fetch unapproved reviews' });
+    }
+});
+
+app.get('/reviews/all', authMiddleware, async (req, res) => {
+    try {
+        const reviews = await Review.find();
+        res.send(reviews);
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to fetch all reviews' });
     }
 });
 

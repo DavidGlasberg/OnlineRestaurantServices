@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactStars from 'react-rating-stars-component';
 import './UnapprovedReviews.css'; 
 
 const UnapprovedReviews = () => {
@@ -51,11 +52,20 @@ const UnapprovedReviews = () => {
     return (
         <div className="unapproved-reviews">
             <h1>Unapproved Reviews</h1>
+            {/* <h1>אזור מנהל - ביקורות ממתינות לאישור</h1> */}
+
             {error && <p className="error-message">{error}</p>}
             <ul>
                 {reviews.map(review => (
                     <li key={review._id}>
                         <p>{review.name}: {review.feedback}</p>
+                        <ReactStars
+                            count={5}
+                            size={24}
+                            activeColor="#ffd700"
+                            value={review.rating}
+                            edit={false}
+                        />
                         <div>
                             <button onClick={() => handleApprove(review._id)}>Approve</button>
                             <button onClick={() => handleDelete(review._id)}>Delete</button>
