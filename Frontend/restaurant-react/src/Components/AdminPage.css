@@ -1,0 +1,35 @@
+/* src/components/AdminPage.css */
+
+.admin-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.reviews {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.review {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.review h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.review p {
+    margin: 5px 0;
+}
+
+.review small {
+    color: #666;
+}
+
+.review button {
+    margin-right: 10px;
+}
