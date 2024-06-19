@@ -26,12 +26,7 @@ mongoose.connect(`${process.env.MONGODB_URL}`, {
     useUnifiedTopology: true,
 });
 
-// const reviewSchema = new mongoose.Schema({
-//     name: String,
-//     feedback: String,
-//     date: String,
-//     approved: { type: Boolean, default: false },
-// });
+
 const reviewSchema = new mongoose.Schema({
     name: String,
     feedback: String,
@@ -56,12 +51,7 @@ app.post('/login', async (req, res) => {
     console.log("Admin connected!");
 });
 
-// app.post('/reviews', async (req, res) => {
-//     const { name, feedback } = req.body;
-//     const newReview = new Review({ name, feedback, date: new Date().toLocaleString() });
-//     await newReview.save();
-//     res.status(201).send(newReview);
-// });
+
 app.post('/reviews', async (req, res) => {
     const { name, feedback, rating } = req.body;
     const newReview = new Review({ name, feedback, rating, date: new Date().toLocaleString() });

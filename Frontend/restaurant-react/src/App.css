@@ -28,27 +28,8 @@ main {
   padding: 20px;
 }
 
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: center;
-  background-color: #343a40;
-  padding: 10px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.1em;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-
-/* HomePage */
-.home-page {
+ /* HomePage */
+ .home-page {
   padding: 20px;
 }
 

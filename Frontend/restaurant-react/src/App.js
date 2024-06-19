@@ -34,7 +34,6 @@
 
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import Navbar from './Components/Navbar';
 import HomePage from './Components/HomePage';
 import ReviewPage from './Components/ReviewPage';
@@ -42,6 +41,7 @@ import LoginPage from './Components/LoginPage';
 import AdminPage from './Components/AdminPage';
 import UnapprovedReviews from './Components/UnapprovedReviews';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import './App.css';
 
 function App() {
     const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);

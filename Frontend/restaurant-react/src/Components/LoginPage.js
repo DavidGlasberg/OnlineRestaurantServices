@@ -3,15 +3,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Oval } from "react-loader-spinner";
 import './LoginPage.css';
 
 const LoginPage = ({ setIsAdminLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const response = await axios.post('http://localhost:5000/login', { username, password });
             const adminToken = response.data.token;
@@ -21,6 +24,8 @@ const LoginPage = ({ setIsAdminLoggedIn }) => {
         } catch (error) {
             console.error('Login failed', error);
             alert("Login failed, user or password worng!")
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,8 +53,15 @@ const LoginPage = ({ setIsAdminLoggedIn }) => {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}
+                </button>
             </form>
+            {loading && (
+                <div className="loader-container">
+                    <Oval color="#00BFFF" radius={"8px"} />
+                </div>
+            )}
         </div>
     );
 };
